@@ -1,13 +1,22 @@
 defmodule TrimetWebServices.Mixfile do
   use Mix.Project
 
+  @version "0.1.0"
+
   def project do
     [app: :trimet_web_services,
-     version: "0.1.0",
+     version: @version,
      elixir: "~> 1.4",
+     description: "A thin wrapper for Trimet Web Service",
+     name: "TrimetWebServices",
+     source_url: "https://github.com/digitalcake/TrimetWebService",
+     package: package(),
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     docs: [main: "TrimetWebServices", source_ref: "v#{@version}",
+       source_url: "https://github.com/digitalcake/TrimetWebService"]
+     ]
   end
 
   # Configuration for the OTP application
@@ -29,6 +38,18 @@ defmodule TrimetWebServices.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:hackney, "~> 1.8"}]
+    [
+      {:httpoison, "~> 0.11.2"},
+      {:poison, "~> 3.1"},
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.11", only: :dev}
+    ]
+  end
+  defp package do
+    [description: "A thin wrapper for Trimet Web Services",
+     files: ["lib", "config", "mix.exs", "README*"],
+     maintainers: ["Josh Chernoff"],
+     licenses: ["MIT"],
+     links: %{github: "https://github.com/digitalcake/TrimetWebService"}]
   end
 end
